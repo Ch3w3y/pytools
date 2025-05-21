@@ -18,7 +18,7 @@
 ```r
 # Install from GitHub (requires devtools)
 # install.packages("devtools")
-devtools::install_github("<yourusername>/pytools")
+devtools::install_github("Ch3w3y/pytools")
 ```
 
 **Python dependencies:**
