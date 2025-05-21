@@ -1,0 +1,172 @@
+---
+title: "Getting Started with pytools"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with pytools}
+  %\VignetteEngine{rmarkdown::render}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+library(pytools)
+```
+
+# pytools: Pythonic Data Science Tools for R
+
+Welcome to **pytools**! This vignette will help you get started with Python-inspired data manipulation and transformer-based NLP in R. It covers installation, environment setup, robust usage examples, troubleshooting, and contribution guidelines.
+
+## Installation
+
+Install the package from GitHub:
+
+```r
+# install.packages("devtools")
+devtools::install_github("yourusername/pytools")
+```
+
+### Python Dependencies
+
+For transformer features, you must have Python with the `transformers` and `torch` packages installed and available to `reticulate`. The easiest way is to run:
+
+```r
+pytools::install_pytools_python_deps()
+```
+
+Alternatively, use:
+
+```r
+reticulate::py_install(c("transformers", "torch"))
+```
+
+or in your Python environment:
+
+```sh
+pip install transformers torch
+```
+
+### Environment Setup (Recommended)
+
+You can use a dedicated Python environment for pytools:
+
+```r
+# Create and use a virtualenv
+reticulate::virtualenv_create("pytools-env")
+reticulate::use_virtualenv("pytools-env", required = TRUE)
+pytools::install_pytools_python_deps()
+
+# Or use a conda environment
+reticulate::conda_create("pytools-conda-env")
+reticulate::use_condaenv("pytools-conda-env", required = TRUE)
+pytools::install_pytools_python_deps()
+```
+
+## Data Manipulation Functions
+
+### value_counts
+Count unique values in a vector:
+
+```{r}
+value_counts(c('a', 'b', 'a', 'c', 'b', 'a'))
+value_counts(c()) # Edge case: empty vector
+```
+
+### clip
+Limit values in a numeric vector:
+
+```{r}
+clip(c(-2, 0, 5, 10), lower = 0, upper = 5)
+clip(c(NA, 1, 2), lower = 0, upper = 1) # Handles NA
+```
+
+### explode
+Explode a list-column into long format:
+
+```{r}
+df <- data.frame(a = 1:2, b = I(list(1:2, 3:4)))
+explode(df, b)
+```
+
+### cut_bins
+Bin continuous data into discrete intervals:
+
+```{r}
+cut_bins(1:10, bins = 3)
+cut_bins(1:10, bins = c(0, 5, 10), labels = c("Low", "High"))
+```
+
+### query_df
+Query a data frame with a string expression:
+
+```{r}
+df <- data.frame(a = 1:5, b = 6:10)
+query_df(df, 'a > 2 & b < 10')
+```
+
+## Transformer Models
+
+### Embedding
+```{r eval=FALSE}
+model <- load_transformer('distilbert-base-uncased', device = 'auto')
+emb <- model$embed(c('Hello world!', 'Another sentence.'))
+```
+
+### Classification
+```{r eval=FALSE}
+clf <- load_transformer('distilbert-base-uncased-finetuned-sst-2-english', task = 'classification')
+clf$classify('I love R!')
+```
+
+### Summarization
+```{r eval=FALSE}
+summ <- load_transformer('facebook/bart-large-cnn', task = 'summarization')
+summ$summarize('Long text to summarize ...')
+```
+
+### Question Answering
+```{r eval=FALSE}
+qa <- load_transformer('distilbert-base-cased-distilled-squad', task = 'question-answering')
+qa$answer(question = 'What is the capital of France?', context = 'Paris is the capital of France.')
+```
+
+### Translation (Single and Batch)
+```{r eval=FALSE}
+trans <- load_transformer('Helsinki-NLP/opus-mt-en-cy', task = 'translation')
+trans$translate('Hello, how are you?')
+df <- data.frame(text = c('Hello', 'How are you?', NA))
+trans$translate(df$text)
+```
+
+### Image Generation (if supported)
+```{r eval=FALSE}
+# img_model <- load_transformer('CompVis/stable-diffusion-v1-4', task = 'image-generation', device = 'cuda')
+# img <- img_model$generate('A cat riding a bicycle')
+```
+
+### Error Handling Example
+```{r eval=FALSE}
+# If a required Python package is missing:
+tryCatch({
+  model <- load_transformer('distilbert-base-uncased')
+}, error = function(e) {
+  message("Error: ", e$message)
+  message("See the vignette section on Python dependencies.")
+})
+```
+
+## Troubleshooting
+- If you see errors about missing Python modules, run `pytools::install_pytools_python_deps()`.
+- Use `reticulate::py_config()` to check which Python is being used.
+- If you have multiple Python installations, set the path with `reticulate::use_python()` or use a virtualenv/conda env as above.
+- Restart your R session after changing environments.
+
+## Contribution Guidelines
+- Pull requests and issues are welcome!
+- Please ensure new features are well-documented and tested.
+- See the [README](../README.md) for more details.
+
+## Getting Help
+- For package issues, open a GitHub issue.
+- For Python/reticulate issues, see the [reticulate documentation](https://rstudio.github.io/reticulate/).
+
+## License
+MIT
