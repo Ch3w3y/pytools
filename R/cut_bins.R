@@ -8,12 +8,28 @@
 #' @param include.lowest Whether to include the lowest value in the first interval (default: TRUE).
 #' @return A factor indicating bin membership for each element of x.
 #' @examples
-#' cut_bins(1:10, bins=3)
+#' cut_bins(1:10, bins = 3)
 #' @export
 cut_bins <- function(x, bins, labels = NULL, include.lowest = TRUE) {
   if (length(bins) == 1) {
-    return(cut(x, breaks = bins, labels = labels, include.lowest = include.lowest, right = TRUE))
+    return(
+      cut(
+        x,
+        breaks = bins,
+        labels = labels,
+        include.lowest = include.lowest,
+        right = TRUE
+      )
+    )
   } else {
-    return(cut(x, breaks = bins, labels = labels, include.lowest = include.lowest, right = TRUE))
+    return(
+      cut(
+        x,
+        breaks = bins,
+        labels = labels,
+        include.lowest = include.lowest,
+        right = TRUE
+      )
+    )
   }
 } 

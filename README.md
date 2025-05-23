@@ -96,10 +96,8 @@ Pull requests and issues are welcome! Please ensure new features are well-docume
 - For Python/reticulate issues, see the [reticulate documentation](https://rstudio.github.io/reticulate/).
 
 ## License
-MIT 
+MIT
 
 ## Examples
 
-See [examples/text_classification_demo.R](examples/text_classification_demo.R) for a full demo of text classification in R using pytools and Hugging Face models. 
-
-# See the examples/text_classification_demo.R script for a full workflow. 
+See [examples/text_classification_demo.R](examples/text_classification_demo.R) for a full demo of text classification in R using pytools and Hugging Face models.

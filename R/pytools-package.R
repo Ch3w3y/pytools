@@ -17,13 +17,18 @@
 .onLoad <- function(libname, pkgname) {
   missing <- c()
   if (!requireNamespace("reticulate", quietly = TRUE)) return()
-  if (!reticulate::py_module_available('transformers')) missing <- c(missing, 'transformers')
-  if (!reticulate::py_module_available('torch')) missing <- c(missing, 'torch')
+  if (!reticulate::py_module_available("transformers")) {
+    missing <- c(missing, "transformers")
+  }
+  if (!reticulate::py_module_available("torch")) {
+    missing <- c(missing, "torch")
+  }
   if (length(missing) > 0) {
     packageStartupMessage(
       paste0(
-        "Python package(s) ", paste(missing, collapse = ', '),
-        " not found. Install with reticulate::py_install(c('transformers', 'torch'))."
+        "Python package(s) ",
+        paste(missing, collapse = ", "),
+        " not found. Install with reticulate::py_install(c(\"transformers\", \"torch\"))."
       )
     )
   }

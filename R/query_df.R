@@ -7,7 +7,7 @@
 #' @return A filtered data frame.
 #' @examples
 #' df <- data.frame(a = 1:5, b = 6:10)
-#' query_df(df, 'a > 2 & b < 10')
+#' query_df(df, "a > 2 & b < 10")
 #' @export
 query_df <- function(df, expr) {
   rows <- eval(parse(text = expr), envir = df)
