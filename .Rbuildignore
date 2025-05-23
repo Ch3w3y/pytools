@@ -17,4 +17,6 @@
 ^\.coverage$
 ^html/
 ^Meta/
-^inst/doc/ 
+^inst/doc/
+^CONTRIBUTING\\.md$
+^example/ 

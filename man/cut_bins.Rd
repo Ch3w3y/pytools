@@ -22,5 +22,5 @@ A factor indicating bin membership for each element of x.
 Similar to pandas.cut, divides data into bins.
 }
 \examples{
-cut_bins(1:10, bins=3)
+cut_bins(1:10, bins = 3)
 }

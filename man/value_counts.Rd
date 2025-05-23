@@ -10,11 +10,11 @@ value_counts(x)
 \item{x}{A vector (numeric, character, factor, etc.)}
 }
 \value{
-A data frame with columns 'value' and 'count'.
+A data frame with columns "value" and "count".
 }
 \description{
 Returns a data frame with unique values and their counts, sorted by count (descending).
 }
 \examples{
-value_counts(c('a', 'b', 'a', 'c', 'b', 'a'))
+value_counts(c("a", "b", "a", "c", "b", "a"))
 }

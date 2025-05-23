@@ -11,11 +11,11 @@ load_transformer(
 )
 }
 \arguments{
-\item{model_name}{The Hugging Face model name (e.g., 'distilbert-base-uncased').}
+\item{model_name}{The Hugging Face model name (e.g., "distilbert-base-uncased").}
 
-\item{device}{Device to use: 'cpu', 'cuda', or 'auto' (default: 'auto').}
+\item{device}{Device to use: "cpu", "cuda", or "auto" (default: "auto").}
 
-\item{task}{Task type: 'text', 'classification', 'summarization', 'question-answering', 'translation', or 'image-generation'.}
+\item{task}{Task type: "text", "classification", "summarization", "question-answering", "translation", or "image-generation".}
 }
 \value{
 An object with methods for the selected task(s).
@@ -27,22 +27,22 @@ Provides methods for embedding text, classification, summarization, question ans
 \examples{
 \dontrun{
 # Embedding
-model <- load_transformer('distilbert-base-uncased', device = 'auto')
-emb <- model$embed(c('Hello world!', 'Another sentence.'))
+model <- load_transformer("distilbert-base-uncased", device = "auto")
+emb <- model$embed(c("Hello world!", "Another sentence."))
 # Classification
-clf <- load_transformer('distilbert-base-uncased-finetuned-sst-2-english', task = 'classification')
-clf$classify('I love R!')
+clf <- load_transformer("distilbert-base-uncased-finetuned-sst-2-english", task = "classification")
+clf$classify("I love R!")
 # Summarization
-summ <- load_transformer('facebook/bart-large-cnn', task = 'summarization')
-summ$summarize('Long text to summarize ...')
+summ <- load_transformer("facebook/bart-large-cnn", task = "summarization")
+summ$summarize("Long text to summarize ...")
 # Question Answering
-qa <- load_transformer('distilbert-base-cased-distilled-squad', task = 'question-answering')
-qa$answer(question = 'What is the capital of France?', context = 'Paris is the capital of France.')
+qa <- load_transformer("distilbert-base-cased-distilled-squad", task = "question-answering")
+qa$answer(question = "What is the capital of France?", context = "Paris is the capital of France.")
 # English to Welsh translation (single and batch)
-trans <- load_transformer('Helsinki-NLP/opus-mt-en-cy', task = 'translation')
-trans$translate('Hello, how are you?')
+trans <- load_transformer("Helsinki-NLP/opus-mt-en-cy", task = "translation")
+trans$translate("Hello, how are you?")
 # Batch translation from a data frame column
-df <- data.frame(text = c('Hello', 'How are you?', NA))
+df <- data.frame(text = c("Hello", "How are you?", NA))
 trans$translate(df$text)
 }
 }

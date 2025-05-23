@@ -19,5 +19,5 @@ Filter rows of a data frame using a string expression (like pandas.DataFrame.que
 }
 \examples{
 df <- data.frame(a = 1:5, b = 6:10)
-query_df(df, 'a > 2 & b < 10')
+query_df(df, "a > 2 & b < 10")
 }

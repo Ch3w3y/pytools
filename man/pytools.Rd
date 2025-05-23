@@ -4,10 +4,10 @@
 \name{pytools}
 \alias{-package}
 \alias{pytools}
-\alias{.onLoad}
+\alias{.onAttach}
 \title{pytools: Pythonic Data Science Tools for R}
 \usage{
-.onLoad(libname, pkgname)
+.onAttach(libname, pkgname)
 }
 \description{
 Provides data manipulation and machine learning utilities inspired by Python's pandas and Hugging Face transformers, including value_counts, clip, explode, cut_bins, query_df, and seamless access to state-of-the-art NLP models via reticulate.

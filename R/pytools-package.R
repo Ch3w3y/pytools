@@ -14,7 +14,7 @@
 #' See function documentation and README for usage examples.
 #'
 #' @keywords internal
-.onLoad <- function(libname, pkgname) {
+.onAttach <- function(libname, pkgname) {
   missing <- c()
   if (!requireNamespace("reticulate", quietly = TRUE)) return()
   if (!reticulate::py_module_available("transformers")) {
