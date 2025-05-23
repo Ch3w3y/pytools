@@ -153,6 +153,64 @@ tryCatch({
 })
 ```
 
+## Example: Clean Sentiment Classification Flow with Tidyverse
+
+Suppose you have a data frame called `data` with a column `text`:
+
+```{r}
+library(pytools)
+library(dplyr)
+library(tibble)
+
+data <- tibble(
+  id = 1:3,
+  text = c(
+    "I love this product!",
+    "It's okay, not great.",
+    "I hate waiting in line."
+  )
+)
+print(data)
+```
+
+### 1. Load a Sentiment Model from Hugging Face
+
+```{r eval=FALSE}
+clf <- load_transformer(
+  model_name = "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  task = "classification"
+)
+```
+
+### 2. Classify and Bind Results
+
+```{r eval=FALSE}
+results <- as_tibble(clf$classify(data$text))
+label_map <- c("POSITIVE" = "Positive", "NEUTRAL" = "Neutral", "NEGATIVE" = "Negative")
+results <- results %>%
+  mutate(sentiment_label = label_map[label])
+
+data <- bind_cols(data, results %>% select(sentiment_label, sentiment_score = score))
+print(data)
+```
+
+**Result:**
+
+```
+# A tibble: 3 × 4
+     id text                      sentiment_label sentiment_score
+   <int> <chr>                    <chr>           <dbl>
+ 1     1 I love this product!     Positive         0.98
+ 2     2 It's okay, not great.    Neutral          0.75
+ 3     3 I hate waiting in line.  Negative         0.99
+```
+
+**Notes:**
+- Each step is modular and clear.
+- You can easily extend this for visualization or further analysis.
+- If you use a different model, check the output labels and adjust `label_map` accordingly.
+- If you want to keep the original Hugging Face labels, you can skip the mapping step.
+
 ## Troubleshooting
 - If you see errors about missing Python modules, run `pytools::install_pytools_python_deps()`.
 - Use `reticulate::py_config()` to check which Python is being used.
